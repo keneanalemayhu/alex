@@ -1,7 +1,7 @@
-// @/app/page.tsx
+// @/app/dashboard/page.tsx
 
 import { redirect } from "next/navigation";
 
 export default function Home() {
-  redirect("/auth/dashboard/");
+  redirect("/dashboard/overview");
 }
