@@ -1,15 +1,11 @@
-// @/app/dashboard/overview/page.tsx
+// @/app/dashboard/orders/page.tsx
 
-import { AppSidebar } from "@/components/sidebar/app-sidebar"
-import { ChartAreaInteractive } from "@/components/sidebar/chart-area-interactive"
-import { SectionCards } from "@/components/sidebar/section-cards"
-import { SiteHeader } from "@/components/sidebar/site-header"
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
+import { SiteHeader } from "@/components/sidebar/site-header";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import OrderTableClient from "@/components/common/tables/client/OrderTableClient";
 
-export default function OverviewPage() {
+export default function OrdersPage() {
   return (
     <SidebarProvider
       style={
@@ -25,14 +21,11 @@ export default function OverviewPage() {
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
             <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <SectionCards />
-              <div className="px-4 lg:px-6">
-                <ChartAreaInteractive />
-              </div>
+              <OrderTableClient />
             </div>
           </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

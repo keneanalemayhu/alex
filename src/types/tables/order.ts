@@ -4,7 +4,7 @@ import { FullEntity } from "@/types/base";
 
 export type PaymentMethod = "cash" | "telebirr" | "bank_transfer";
 
-export type Order = Omit<FullEntity, "updated_at"> & {
+export type Order = FullEntity & {
   waiter_id: number;
   menu_item_id: number;
   quantity: number;

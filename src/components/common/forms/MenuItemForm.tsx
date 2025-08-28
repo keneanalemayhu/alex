@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// @/components/common/forms/WaiterForm.tsx
+// @/components/common/forms/MenuItemForm.tsx
 
 "use client";
 import { useState } from "react";
@@ -7,21 +7,23 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { FormBaseProps } from "@/types/base";
-import { Waiter } from "@/types";
-import { createWaiterSchema } from "@/lib/zod";
+import { MenuItem } from "@/types";
+import { createMenuItemSchema } from "@/lib/zod/menuItem";
 
-export type WaiterFormProps = FormBaseProps<Waiter>;
+export type MenuItemFormProps = FormBaseProps<MenuItem>;
 
-export function WaiterForm({ onAdd, closeDialog, existing }: WaiterFormProps) {
+export function MenuItemForm({ onAdd, closeDialog, existing }: MenuItemFormProps) {
   const [name, setName] = useState(existing?.name ?? "");
-  const [servesCoffee, setServesCoffee] = useState(existing?.serves_coffee ?? false);
+  const [price, setPrice] = useState(existing?.price ?? 0);
+  const [isCoffee, setIsCoffee] = useState(existing?.is_coffee ?? false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = () => {
     try {
-      const validated = createWaiterSchema.parse({
+      const validated = createMenuItemSchema.parse({
         name,
-        serves_coffee: servesCoffee,
+        price,
+        is_coffee: isCoffee,
       });
 
       onAdd?.(validated);
@@ -30,7 +32,8 @@ export function WaiterForm({ onAdd, closeDialog, existing }: WaiterFormProps) {
 
       setTimeout(() => {
         setName("");
-        setServesCoffee(false);
+        setPrice(0);
+        setIsCoffee(false);
         setError(null);
       }, 100);
     } catch (e: any) {
@@ -61,15 +64,26 @@ export function WaiterForm({ onAdd, closeDialog, existing }: WaiterFormProps) {
       </div>
 
       <div className="flex items-center gap-4">
-        <label className="w-36 text-sm font-medium text-right">Serves Coffee</label>
-        <div className="flex items-center gap-2 w-full">
-          <Checkbox
-            id="serves_coffee"
-            checked={servesCoffee}
-            onCheckedChange={(checked) => setServesCoffee(Boolean(checked))}
-          />
-          <span className="text-muted-foreground">{servesCoffee ? "Yes" : "No"}</span>
-        </div>
+        <label className="w-36 text-sm font-medium text-right">
+          Price <span className="text-red-500">*</span>
+        </label>
+        <Input
+          placeholder="Enter price"
+          type="number"
+          className="w-full"
+          value={price}
+          onChange={(e) => setPrice(Number(e.target.value))}
+        />
+      </div>
+
+      <div className="flex items-center gap-4">
+        <label className="w-36 text-sm font-medium text-right">
+          Coffee Item
+        </label>
+        <Checkbox
+          checked={isCoffee}
+          onCheckedChange={(val) => setIsCoffee(Boolean(val))}
+        />
       </div>
 
       <div className="flex justify-end gap-4 pt-1 pb-1">

@@ -5,19 +5,22 @@ import { useState } from "react";
 import { Waiter } from "@/types";
 
 const initialWaiters: Waiter[] = [
-  { id: 1, name: "Alemayehu Tilahun", serves_coffee: true, created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
-  { id: 2, name: "Sara Bekele", serves_coffee: false, created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
-  { id: 3, name: "Daniel Tadesse", serves_coffee: true, created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
+  { id: 1, name: "Asnaku", serves_coffee: false, created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
+  { id: 2, name: "Eyerus", serves_coffee: true, created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
+  { id: 3, name: "Jamal", serves_coffee: false, created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
 ];
 
 export function useWaiterTable() {
   const [data, setData] = useState<Waiter[]>(initialWaiters);
 
   const addWaiter = (waiter: Omit<Waiter, "id" | "created_at" | "updated_at">) => {
-    setData((prev) => [
-      ...prev,
-      { id: prev.length + 1, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), ...waiter },
-    ]);
+    setData((prev) => {
+      const newId = prev.length ? Math.max(...prev.map((x) => x.id)) + 1 : 1;
+      return [
+        ...prev,
+        { id: newId, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), ...waiter },
+      ];
+    });
   };
 
   const updateWaiter = (updated: Waiter) => {

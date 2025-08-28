@@ -40,9 +40,10 @@ export const createOrderSchema = z.object({
 // Daily Reconciliation
 export const reconciliationSchema = z.object({
   waiter_id: z.number(),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), // YYYY-MM-DD
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   total_cash_expected: z.number().nonnegative(),
   total_cash_collected: z.number().nonnegative(),
   absent: z.number().nonnegative().default(0),
   rolled_over: z.number().nonnegative().default(0),
+  extra_paid: z.number().nonnegative().default(0),
 });

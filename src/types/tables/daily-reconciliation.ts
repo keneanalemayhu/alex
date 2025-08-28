@@ -9,4 +9,5 @@ export type DailyReconciliation = FullEntity & {
   total_cash_collected: number;
   absent: number;
   rolled_over: number;
+  extra_paid: number;
 };

@@ -6,7 +6,7 @@ export interface BaseEntity {
   updated_at: string;
 }
 
-export interface FullEntity extends BaseEntity {}
+export type FullEntity = BaseEntity
 
 export type FormBaseProps<T, Extras = unknown> = Extras & {
   onAdd?: (input: Omit<T, "id" | "created_at" | "updated_at">) => void;

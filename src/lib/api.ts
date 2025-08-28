@@ -90,7 +90,7 @@ export const OrdersAPI = {
     update: (id: number, data: Partial<Pick<Order, "quantity" | "payment_method">>) =>
         request<ApiResponse<Order>>(`/orders/${id}`, {
             method: "PUT",
-            body: JSON.stringify({ id, ...data }), // include id if backend expects it
+            body: JSON.stringify({ id, ...data }), // note: include id if backend expects it
         }),
     delete: (id: number) => request<ApiResponse<null>>(`/orders/${id}`, { method: "DELETE" }),
 };
